@@ -1,0 +1,40 @@
+<div class="container py-4">
+  <h2 class="mb-3">Order History</h2>
+
+  @if (loading()) {
+    <p>Loading orders...</p>
+  } @else if (orders().length === 0) {
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">No orders yet.</div>
+    </div>
+  } @else {
+    <div class="row g-3">
+      @for (order of orders(); track order.orderId) {
+        <div class="col-12">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+                <div>
+                  <h5 class="mb-1">Order #{{ order.orderId }}</h5>
+                  <p class="mb-0 text-secondary">{{ order.createdAt | date:'medium' }}</p>
+                </div>
+                <div class="text-end">
+                  <span class="badge text-bg-primary me-2">{{ order.status }}</span>
+                  <strong>{{ order.totalAmount | currency:'USD' }}</strong>
+                </div>
+              </div>
+
+              <p class="mb-2"><strong>Delivery:</strong> {{ order.deliveryAddress }}</p>
+
+              <ul class="mb-0">
+                @for (item of order.items; track item.productId) {
+                  <li>{{ item.productName }} x {{ item.quantity }} ({{ item.price | currency:'USD' }})</li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

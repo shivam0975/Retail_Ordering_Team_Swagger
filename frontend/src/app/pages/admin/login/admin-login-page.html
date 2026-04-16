@@ -1,0 +1,62 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4 p-md-5">
+          <h2 class="mb-3">Admin Access</h2>
+          <p class="text-secondary mb-4">Use admin credentials to manage products, catalog, and orders.</p>
+
+          <div class="btn-group w-100 mb-4" role="group" aria-label="Admin mode">
+            <button class="btn" [class.btn-primary]="mode() === 'login'" [class.btn-outline-primary]="mode() !== 'login'" (click)="setMode('login')">Login</button>
+            <button class="btn" [class.btn-primary]="mode() === 'register'" [class.btn-outline-primary]="mode() !== 'register'" (click)="setMode('register')">Register</button>
+          </div>
+
+          @if (mode() === 'login') {
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input class="form-control" type="email" [(ngModel)]="loginForm.email" name="adminEmail" placeholder="admin@example.com" />
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Password</label>
+              <input class="form-control" type="password" [(ngModel)]="loginForm.password" name="adminPassword" placeholder="Enter password" />
+            </div>
+
+            <button class="btn btn-primary w-100" [disabled]="loading()" (click)="adminLogin()">
+              {{ loading() ? 'Signing in...' : 'Admin Login' }}
+            </button>
+          } @else {
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input class="form-control" type="text" [(ngModel)]="registerForm.name" name="adminName" placeholder="Admin name" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input class="form-control" type="email" [(ngModel)]="registerForm.email" name="adminRegisterEmail" placeholder="admin@example.com" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input class="form-control" type="password" [(ngModel)]="registerForm.password" name="adminRegisterPassword" placeholder="Create password" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Confirm Password</label>
+              <input class="form-control" type="password" [(ngModel)]="registerForm.confirmPassword" name="adminRegisterConfirmPassword" placeholder="Confirm password" />
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Admin Secret</label>
+              <input class="form-control" type="password" [(ngModel)]="registerForm.adminSecret" name="adminSecret" placeholder="Enter admin registration secret" />
+            </div>
+
+            <button class="btn btn-primary w-100" [disabled]="loading()" (click)="adminRegister()">
+              {{ loading() ? 'Creating admin...' : 'Register Admin' }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

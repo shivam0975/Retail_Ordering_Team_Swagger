@@ -1,0 +1,60 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4 p-md-5">
+          <div class="btn-group w-100 mb-4" role="group" aria-label="Auth mode">
+            <button class="btn" [class.btn-primary]="mode() === 'login'" [class.btn-outline-primary]="mode() !== 'login'" (click)="setMode('login')">Login</button>
+            <button class="btn" [class.btn-primary]="mode() === 'register'" [class.btn-outline-primary]="mode() !== 'register'" (click)="setMode('register')">Register</button>
+          </div>
+
+          @if (mode() === 'login') {
+            <h2 class="mb-3">Login</h2>
+            <p class="text-secondary mb-4">Sign in to browse menu, manage cart, and place orders.</p>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input class="form-control" type="email" [(ngModel)]="form.email" name="email" placeholder="user@example.com" />
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Password</label>
+              <input class="form-control" type="password" [(ngModel)]="form.password" name="password" placeholder="Enter password" />
+            </div>
+
+            <button class="btn btn-primary w-100" [disabled]="loading()" (click)="login()">
+              {{ loading() ? 'Signing in...' : 'Login' }}
+            </button>
+          } @else {
+            <h2 class="mb-3">Register</h2>
+            <p class="text-secondary mb-4">Create your account to start ordering.</p>
+
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input class="form-control" type="text" [(ngModel)]="registerForm.name" name="name" placeholder="Your name" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input class="form-control" type="email" [(ngModel)]="registerForm.email" name="registerEmail" placeholder="user@example.com" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input class="form-control" type="password" [(ngModel)]="registerForm.password" name="registerPassword" placeholder="Create password" />
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Confirm Password</label>
+              <input class="form-control" type="password" [(ngModel)]="registerForm.confirmPassword" name="confirmPassword" placeholder="Confirm password" />
+            </div>
+
+            <button class="btn btn-primary w-100" [disabled]="loading()" (click)="register()">
+              {{ loading() ? 'Creating account...' : 'Register' }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

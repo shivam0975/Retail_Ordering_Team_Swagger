@@ -1,0 +1,66 @@
+<div class="container py-4">
+  <h2 class="mb-4">Admin Catalog</h2>
+
+  <div class="row g-4">
+    <div class="col-12 col-lg-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <h5>Categories</h5>
+          <div class="d-flex gap-2 mb-3">
+            <input class="form-control" [(ngModel)]="categoryName" placeholder="New category" />
+            <button class="btn btn-primary" (click)="createCategory()">Add</button>
+          </div>
+          <ul class="list-group list-group-flush">
+            @for (category of categories(); track category.id) {
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                <span>{{ category.name }}</span>
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteCategory(category.id)">Delete</button>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <h5>Brands</h5>
+          <div class="d-flex gap-2 mb-3">
+            <input class="form-control" [(ngModel)]="brandName" placeholder="New brand" />
+            <button class="btn btn-primary" (click)="createBrand()">Add</button>
+          </div>
+          <ul class="list-group list-group-flush">
+            @for (brand of brands(); track brand.id) {
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                <span>{{ brand.name }}</span>
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteBrand(brand.id)">Delete</button>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <h5>Coupons</h5>
+          <div class="mb-2"><input class="form-control" [(ngModel)]="couponForm.code" placeholder="Code" /></div>
+          <div class="mb-2"><input class="form-control" type="number" min="0" [(ngModel)]="couponForm.discount" placeholder="Discount %" /></div>
+          <div class="mb-2"><input class="form-control" type="date" [(ngModel)]="couponForm.expiryDate" /></div>
+          <button class="btn btn-primary w-100 mb-3" (click)="createCoupon()">Add Coupon</button>
+
+          <ul class="list-group list-group-flush">
+            @for (coupon of coupons(); track coupon.id) {
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                <span>{{ coupon.code }} ({{ coupon.discount }}%)</span>
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteCoupon(coupon.id)">Delete</button>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

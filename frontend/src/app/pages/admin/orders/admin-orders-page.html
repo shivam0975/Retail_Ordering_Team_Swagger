@@ -1,0 +1,46 @@
+<div class="container py-4">
+  <h2 class="mb-4">Admin Orders</h2>
+
+  @if (loading()) {
+    <p>Loading orders...</p>
+  } @else {
+    <div class="row g-3">
+      @for (order of orders(); track order.orderId) {
+        <div class="col-12">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+                <div>
+                  <h5 class="mb-1">Order #{{ order.orderId }}</h5>
+                  <p class="mb-0 text-secondary">{{ order.userName }} ({{ order.userEmail }})</p>
+                </div>
+                <div class="text-end">
+                  <p class="mb-1">{{ order.totalAmount | currency:'USD' }}</p>
+                  <small class="text-secondary">{{ order.createdAt | date:'medium' }}</small>
+                </div>
+              </div>
+
+              <p class="mb-2"><strong>Address:</strong> {{ order.deliveryAddress }}</p>
+
+              <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                <span class="badge text-bg-primary">{{ order.status }}</span>
+                <select class="form-select form-select-sm" style="max-width: 220px;" #statusSelect>
+                  @for (status of statuses; track status) {
+                    <option [value]="status" [selected]="status === order.status">{{ status }}</option>
+                  }
+                </select>
+                <button class="btn btn-sm btn-outline-primary" (click)="updateStatus(order, statusSelect.value)">Update Status</button>
+              </div>
+
+              <ul class="mb-0">
+                @for (item of order.items; track item.productId) {
+                  <li>{{ item.productName }} x {{ item.quantity }} ({{ item.price | currency:'USD' }})</li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

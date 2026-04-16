@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg border-bottom bg-white">
+  <div class="container py-2">
+    <a class="navbar-brand fw-bold" routerLink="/menu">Retail Ordering</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav" aria-controls="topNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="topNav">
+      @if (sessionState.user(); as user) {
+        @if (user.role === 'ADMIN') {
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">Admin Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/admin/products" routerLinkActive="active">Products</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/admin/catalog" routerLinkActive="active">Catalog</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/admin/orders" routerLinkActive="active">Orders</a></li>
+          </ul>
+        } @else {
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" routerLink="/menu" routerLinkActive="active">Menu</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/cart" routerLinkActive="active">Cart</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/orders" routerLinkActive="active">Orders</a></li>
+          </ul>
+        }
+
+        <div class="d-flex align-items-center gap-2">
+          <span class="text-secondary small">{{ user.name }} ({{ user.role }})</span>
+          <button class="btn btn-outline-danger btn-sm" (click)="logout()">Logout</button>
+        </div>
+      } @else {
+        <div class="ms-auto d-flex gap-2">
+          <a class="btn btn-outline-primary btn-sm" routerLink="/admin/login">Admin</a>
+          <a class="btn btn-primary btn-sm" routerLink="/login">Login</a>
+        </div>
+      }
+    </div>
+  </div>
+</nav>
+
+<app-alert-popup />
+
+<main>
+  <router-outlet />
+</main>
